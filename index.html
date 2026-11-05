@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1c3f63">
+  <link rel="shortcut icon" href="img/music-player.png" type="image/x-icon">
+  <title>Fichas de avaliação | Secretaria da Música</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="vendor/pdf-lib.min.js"></script>
+  <script type="module" src="script.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-mark" aria-hidden="true">♫</div>
+      <div class="brand-copy"><strong>AVALIAÇÃO MUSICAL</strong><span>Secretaria da Música · CCB</span></div>
+      <span class="privacy-badge"><span aria-hidden="true">●</span> Dados processados neste dispositivo</span>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow">Fichas de avaliação</p><h1 id="page-title">Prepare os testes com clareza e rapidez.</h1><p>Importe o relatório de membros, selecione os candidatos e emita até duas fichas por folha.</p></div>
+      <div class="steps" aria-label="Etapas"><span><b>1</b> Importar</span><span><b>2</b> Selecionar</span><span><b>3</b> Emitir</span></div>
+    </section>
+
+    <section class="stats" aria-label="Resumo do relatório">
+      <div class="stat-card"><span class="stat-icon" aria-hidden="true">♫</span><div><span class="stat-label">Membros no relatório</span><strong id="stat-total">0</strong></div></div>
+      <div class="stat-card"><span class="stat-icon" aria-hidden="true">♙</span><div><span class="stat-label">Candidatos</span><strong id="stat-candidates">0</strong></div></div>
+      <div class="stat-card"><span class="stat-icon" aria-hidden="true">⌖</span><div><span class="stat-label">Localidades</span><strong id="stat-localities">0</strong></div></div>
+      <div class="stat-card"><span class="stat-icon" aria-hidden="true">✓</span><div><span class="stat-label">Selecionados para teste</span><strong id="stat-selected">0</strong></div></div>
+    </section>
+
+    <section class="upload-card" aria-labelledby="upload-title">
+      <div class="upload-icon" aria-hidden="true">⇧</div>
+      <div class="upload-text"><h2 id="upload-title">Relatório de membros</h2><p>Selecione o PDF exportado pelo Sistema de Gerenciamento Musical.</p><div id="file-info" class="file-info">Nenhum arquivo selecionado</div></div>
+      <label class="button button-primary" for="report-file">Selecionar PDF</label>
+      <input id="report-file" type="file" accept="application/pdf,.pdf" hidden>
+    </section>
+
+    <div id="notice" class="notice" role="status" hidden></div>
+
+    <section class="workspace" aria-labelledby="members-title">
+      <div class="section-heading"><div><p class="eyebrow">Consulta e seleção</p><h2 id="members-title">Membros do relatório</h2><p>Pesquise, aplique filtros e marque quem realizará o teste.</p></div><span id="count-badge" class="count-badge">0 membros</span></div>
+      <div class="toolbar">
+        <label class="search-field"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Pesquisar nome, instrumento ou localidade" aria-label="Pesquisar membros" disabled></label>
+        <details id="locality-filter" class="filter-menu" inert><summary><span>Todas as localidades</span><span class="filter-chevron" aria-hidden="true">⌄</span></summary><div class="filter-panel"><div class="filter-options" role="group" aria-label="Filtrar por localidade"></div><button class="filter-clear" type="button">Limpar seleção</button></div></details>
+        <details id="instrument-filter" class="filter-menu" inert><summary><span>Todos os instrumentos</span><span class="filter-chevron" aria-hidden="true">⌄</span></summary><div class="filter-panel"><div class="filter-options" role="group" aria-label="Filtrar por instrumento"></div><button class="filter-clear" type="button">Limpar seleção</button></div></details>
+        <details id="level-filter" class="filter-menu" inert><summary><span>Todos os níveis</span><span class="filter-chevron" aria-hidden="true">⌄</span></summary><div class="filter-panel"><div class="filter-options" role="group" aria-label="Filtrar por nível"></div><button class="filter-clear" type="button">Limpar seleção</button></div></details>
+        <button id="select-visible-mobile" class="button button-outline mobile-select" type="button" disabled>Selecionar visíveis</button>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th class="check-col"><input type="checkbox" id="select-visible" aria-label="Selecionar membros visíveis" disabled></th><th>Nome</th><th>Instrumento</th><th>Localidade</th><th>Cargo / Ministério</th><th>Nível</th><th class="action-col">Ação</th></tr></thead><tbody id="members-body"><tr class="empty-row"><td colspan="7"><div class="empty-state"><span aria-hidden="true">▤</span><strong>Os membros aparecerão aqui</strong><p>Importe um relatório em PDF para começar.</p></div></td></tr></tbody></table></div>
+      <div class="table-footer"><span id="visible-count">0 resultados</span><span>Selecione quem realizará o teste</span></div>
+    </section>
+
+    <section class="output-card" aria-labelledby="output-title">
+      <div class="output-copy"><p class="eyebrow">Emissão das fichas</p><h2 id="output-title"><span id="selected-count">0</span> <span id="selected-label">selecionados</span></h2><p>Confira os dados e informe o município, que não consta neste relatório. As fichas mantêm o modelo original.</p></div>
+      <div class="output-controls"><label>Município para os selecionados<input id="municipality-all" type="text" list="municipality-options" placeholder="Selecione ou digite um município" autocomplete="off"></label><label>Data do teste <span class="optional">opcional</span><input id="test-date" type="date"></label><div class="output-actions"><button id="download-pdf" class="button button-primary" type="button" disabled>Baixar PDF</button><button id="print-fichas" class="button button-muted" type="button" disabled>Imprimir</button><button id="clear-selection" class="button button-outline clear-selection" type="button" disabled>Desmarcar todos</button></div></div>
+    </section>
+    <p class="footnote">Os arquivos ficam neste dispositivo. Nada é enviado para um servidor. Cada folha traz até dois candidatos; se a quantidade for ímpar, a última metade fica em branco.</p>
+  </main>
+
+  <dialog id="edit-dialog" aria-labelledby="edit-title"><form id="edit-form" method="dialog"><div class="dialog-head"><div><p class="eyebrow">Conferência</p><h2 id="edit-title">Dados da ficha</h2></div><button type="button" id="close-dialog" class="icon-button" aria-label="Fechar">×</button></div><div class="dialog-grid"><label class="wide">Nome do candidato<input name="nome" required></label><label>Instrumento<input name="instrumento" required></label><label>Localidade<input name="localidade" required></label><label>Município<input name="municipio" list="municipality-options" placeholder="Selecione ou digite outro município" autocomplete="off"></label><label>Encarregado<input name="encarregado" placeholder="Preenchido pela localidade"></label></div><p class="dialog-hint">O encarregado sugerido segue a prioridade: Local, depois Regional da mesma localidade.</p><div class="dialog-actions"><button type="button" id="cancel-edit" class="button button-muted">Cancelar</button><button type="submit" class="button button-primary">Salvar dados</button></div></form></dialog>
+  <datalist id="municipality-options">
+    <option value="Alvorada do Sul"><option value="Arapongas"><option value="Assaí"><option value="Bela Vista do Paraíso"><option value="Cambé">
+    <option value="Centenário do Sul"><option value="Florestópolis"><option value="Guaraci"><option value="Ibiporã"><option value="Jaguapitã">
+    <option value="Jataizinho"><option value="Londrina"><option value="Lupionópolis"><option value="Miraselva"><option value="Pitangueiras">
+    <option value="Porecatu"><option value="Prado Ferreira"><option value="Primeiro de Maio"><option value="Rancho Alegre"><option value="Rolândia">
+    <option value="Sabáudia"><option value="Sertaneja"><option value="Sertanópolis"><option value="Tamarana"><option value="Uraí">
+  </datalist>
+</body>
+</html>
