@@ -15,7 +15,7 @@ button { cursor: pointer; }
   background: linear-gradient(110deg, #173958, #244c73);
   color: #fff;
   box-shadow: 0 4px 22px #12345213;
-  border-top: 5px solid #dbe8f6;
+  /* border-top: 5px solid #dbe8f6; */
 }
 .topbar-inner {
   max-width: 1510px;
